@@ -1,111 +1,94 @@
 # IT Help Desk Ticket Management System
 
-A professional beginner-friendly IT support ticket management web application built with **Python, Flask, SQLite, SQLAlchemy, HTML, CSS and Bootstrap**.
+A web-based IT Help Desk Ticket Management System built using Python and Flask to help IT support teams create, track, prioritize, and manage technical support requests efficiently.
 
-## Features
+## 🚀 Live Demo
 
-- Dashboard with ticket KPIs
-- Create support tickets
-- Ticket search and filtering
-- Priority management
-- Status workflow: Open → In Progress → Resolved → Closed
-- Ticket assignment
-- Ticket detail page
-- Internal support comments/notes
-- Delete tickets
-- SQLite database
-- Responsive Bootstrap interface
-- Production-ready Gunicorn configuration
-- Render deployment configuration
+**Live Application:** https://it-helpdesk-ticket-system-hema.onrender.com
 
-## Tech Stack
+## 📌 Project Overview
 
-- Python 3
-- Flask
-- Flask-SQLAlchemy
-- SQLite
-- HTML5
-- CSS3
-- Bootstrap 5
-- Gunicorn
-- Git/GitHub
-- Render
+This project simulates a basic IT support ticketing workflow. Users can raise support tickets for technical issues, while support staff can manage ticket priorities, update statuses, assign tickets, and add troubleshooting notes.
 
-## Run Locally
+## ✨ Features
 
-### 1. Create and activate virtual environment
+* **Dashboard:** View total, open, in-progress, and resolved ticket statistics.
+* **Ticket Creation:** Record issue details and requester information.
+* **Ticket Management:** View, update, and delete support tickets.
+* **Search & Filtering:** Find tickets by keyword, status, priority, and category.
+* **Priority Management:** Categorize issues as Low, Medium, High, or Critical.
+* **Status Tracking:** Manage tickets through Open, In Progress, Resolved, and Closed statuses.
+* **Ticket Assignment:** Assign requests to an IT support team member.
+* **Support Notes:** Add troubleshooting updates and resolution notes.
+* **Database:** Store ticket records and comments using SQLite.
 
-Windows PowerShell:
+## 🛠️ Technologies Used
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
+* **Backend:** Python, Flask
+* **Database:** SQLite, Flask-SQLAlchemy
+* **Frontend:** HTML5, CSS3, Bootstrap 5
+* **Deployment:** Render, Gunicorn
+* **Version Control:** Git, GitHub
+
+## ⚙️ Run Locally
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/hemayadav07/IT-Helpdesk-Ticket-System.git
+   cd IT-Helpdesk-Ticket-System
+   ```
+
+2. Create a virtual environment:
+
+   ```bash
+   python -m venv .venv
+   ```
+
+3. Activate it on Windows PowerShell:
+
+   ```powershell
+   .venv\Scripts\Activate.ps1
+   ```
+
+4. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. Run the application:
+
+   ```bash
+   python app.py
+   ```
+
+6. Open http://127.0.0.1:5000 in your browser.
+
+## 🧪 Testing
+
+Basic automated tests are included in the `tests/` directory. Run them with:
+
+```bash
+python -m unittest discover -s tests
 ```
 
-If PowerShell blocks activation, use:
+## 🎯 Learning Outcomes
 
-```powershell
-.venv\Scripts\activate.bat
-```
+* Understanding IT support ticket workflows
+* Building a web application with Python and Flask
+* Working with relational data using SQLite and SQLAlchemy
+* Implementing search, filtering, and ticket status management
+* Using Git and GitHub for version control
+* Deploying a Python web application on Render
 
-### 2. Install dependencies
+## 👩‍💻 Author
 
-```powershell
-pip install -r requirements.txt
-```
+**Hema Yadav**
 
-### 3. Start the application
+GitHub: https://github.com/hemayadav07
 
-```powershell
-python app.py
-```
+---
 
-Open:
+*Created as a portfolio project for entry-level IT Support and Technical Support opportunities.*
 
-http://127.0.0.1:5000
-
-The SQLite database is automatically created in the `instance` folder.
-
-## Suggested Demo Workflow
-
-1. Open Dashboard.
-2. Create a ticket such as "Laptop cannot connect to Wi-Fi".
-3. Select Hardware/Network category and High priority.
-4. Assign it to "IT Support".
-5. Open the ticket detail page.
-6. Change status to "In Progress".
-7. Add a support note.
-8. Change status to "Resolved".
-9. Return to Dashboard and verify the KPIs.
-
-## GitHub
-
-```powershell
-git init
-git add .
-git commit -m "Initial IT help desk ticket management system"
-git branch -M main
-git remote add origin YOUR_GITHUB_REPOSITORY_URL
-git push -u origin main
-```
-
-## Deployment on Render
-
-1. Push this project to GitHub.
-2. Create a Render account.
-3. Create a new Web Service.
-4. Connect the GitHub repository.
-5. Use:
-   - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn app:app`
-6. Deploy.
-7. Open the generated `onrender.com` URL.
-
-## Resume Project Description
-
-**IT Help Desk Ticket Management System | Python, Flask, SQLite, SQLAlchemy, Bootstrap**
-- Developed a full-stack IT support ticket management application for creating, tracking, filtering and resolving technical support requests.
-- Implemented ticket lifecycle management with priority, category, assignment and status workflows.
-- Built a dashboard with real-time ticket KPIs and a searchable/filterable ticket list.
-- Added support comments and persistent relational data storage using SQLite and SQLAlchemy.
-- Deployed the Flask application using Gunicorn and Render with Git/GitHub version control.
