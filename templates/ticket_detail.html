@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Ticket #{{ ticket.id }} · IT Help Desk{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+<div><a href="{{ url_for('tickets') }}" class="text-decoration-none">← Back to Tickets</a><h1 class="fw-bold mt-2 mb-0">Ticket #{{ ticket.id }}</h1></div>
+<span class="badge fs-6 bg-status">{{ ticket.status }}</span>
+</div>
+
+<div class="row g-4">
+<div class="col-lg-8">
+<div class="card shadow-sm mb-4">
+<div class="card-body p-4">
+<h3 class="mb-2">{{ ticket.title }}</h3>
+<p class="text-muted mb-4">{{ ticket.description }}</p>
+<div class="row g-3">
+<div class="col-sm-6"><strong>Requester</strong><br>{{ ticket.requester_name }}<br><small class="text-muted">{{ ticket.requester_email }}</small></div>
+<div class="col-sm-6"><strong>Assigned To</strong><br>{{ ticket.assigned_to or "Unassigned" }}</div>
+<div class="col-sm-4"><strong>Category</strong><br>{{ ticket.category }}</div>
+<div class="col-sm-4"><strong>Priority</strong><br>{{ ticket.priority }}</div>
+<div class="col-sm-4"><strong>Created</strong><br>{{ ticket.created_at.strftime('%d %b %Y, %H:%M') }}</div>
+</div>
+</div></div>
+
+<div class="card shadow-sm">
+<div class="card-header bg-white"><strong>Support Notes</strong></div>
+<div class="card-body">
+{% for comment in comments %}
+<div class="border-bottom pb-3 mb-3">
+<div class="d-flex justify-content-between"><strong>{{ comment.author }}</strong><small class="text-muted">{{ comment.created_at.strftime('%d %b %Y, %H:%M') }}</small></div>
+<p class="mb-0 mt-2">{{ comment.message }}</p>
+</div>
+{% else %}<p class="text-muted mb-0">No support notes yet.</p>{% endfor %}
+<form method="post" class="mt-4">
+<input type="hidden" name="action" value="comment">
+<input name="author" class="form-control mb-2" placeholder="Your name" required>
+<textarea name="message" rows="3" class="form-control mb-2" placeholder="Add troubleshooting notes or resolution details..." required></textarea>
+<button class="btn btn-outline-primary">Add Note</button>
+</form>
+</div></div>
+</div>
+
+<div class="col-lg-4">
+<div class="card shadow-sm">
+<div class="card-header bg-white"><strong>Update Ticket</strong></div>
+<div class="card-body">
+<form method="post">
+<input type="hidden" name="action" value="update">
+<label class="form-label">Status</label>
+<select name="status" class="form-select mb-3">{% for x in ["Open","In Progress","Resolved","Closed"] %}<option {% if ticket.status == x %}selected{% endif %}>{{ x }}</option>{% endfor %}</select>
+<label class="form-label">Priority</label>
+<select name="priority" class="form-select mb-3">{% for x in ["Low","Medium","High","Critical"] %}<option {% if ticket.priority == x %}selected{% endif %}>{{ x }}</option>{% endfor %}</select>
+<label class="form-label">Category</label>
+<select name="category" class="form-select mb-3">{% for x in ["Hardware","Software","Network","Access","Email","Other"] %}<option {% if ticket.category == x %}selected{% endif %}>{{ x }}</option>{% endfor %}</select>
+<label class="form-label">Assigned To</label>
+<input name="assigned_to" value="{{ ticket.assigned_to or '' }}" class="form-control mb-3" placeholder="IT Support">
+<button class="btn btn-primary w-100">Save Changes</button>
+</form>
+<hr>
+<form method="post" action="{{ url_for('delete_ticket', ticket_id=ticket.id) }}" onsubmit="return confirm('Delete this ticket?');">
+<button class="btn btn-outline-danger w-100">Delete Ticket</button>
+</form>
+</div></div>
+</div>
+</div>
+{% endblock %}

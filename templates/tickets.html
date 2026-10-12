@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Tickets · IT Help Desk{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h1 class="fw-bold mb-1">Tickets</h1><p class="text-muted mb-0">Search, filter and manage support requests.</p></div>
+    <a href="{{ url_for('new_ticket') }}" class="btn btn-primary">+ New Ticket</a>
+</div>
+
+<form class="card card-body shadow-sm mb-4" method="get">
+    <div class="row g-2">
+        <div class="col-lg-4"><input class="form-control" name="search" value="{{ search }}" placeholder="Search issue, requester or email"></div>
+        <div class="col-md-4 col-lg-2">
+            <select class="form-select" name="status">
+                <option value="">All Statuses</option>
+                {% for item in ["Open","In Progress","Resolved","Closed"] %}<option {% if selected_status == item %}selected{% endif %}>{{ item }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <select class="form-select" name="priority">
+                <option value="">All Priorities</option>
+                {% for item in ["Low","Medium","High","Critical"] %}<option {% if selected_priority == item %}selected{% endif %}>{{ item }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <select class="form-select" name="category">
+                <option value="">All Categories</option>
+                {% for item in ["Hardware","Software","Network","Access","Email","Other"] %}<option {% if selected_category == item %}selected{% endif %}>{{ item }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-lg-2 d-flex gap-2">
+            <button class="btn btn-dark flex-grow-1">Filter</button>
+            <a class="btn btn-outline-secondary" href="{{ url_for('tickets') }}">Reset</a>
+        </div>
+    </div>
+</form>
+
+<div class="card shadow-sm">
+<div class="table-responsive">
+<table class="table table-hover align-middle mb-0">
+<thead><tr><th>ID</th><th>Issue</th><th>Requester</th><th>Category</th><th>Priority</th><th>Status</th><th>Created</th><th></th></tr></thead>
+<tbody>
+{% for ticket in tickets %}
+<tr>
+<td>#{{ ticket.id }}</td>
+<td><a class="fw-semibold text-decoration-none" href="{{ url_for('ticket_detail', ticket_id=ticket.id) }}">{{ ticket.title }}</a></td>
+<td>{{ ticket.requester_name }}<br><small class="text-muted">{{ ticket.requester_email }}</small></td>
+<td>{{ ticket.category }}</td>
+<td><span class="badge {{ 'text-bg-danger' if ticket.priority == 'Critical' else 'text-bg-warning' if ticket.priority == 'High' else 'text-bg-secondary' }}">{{ ticket.priority }}</span></td>
+<td><span class="badge bg-status">{{ ticket.status }}</span></td>
+<td>{{ ticket.created_at.strftime('%d %b %Y') }}</td>
+<td><a class="btn btn-sm btn-outline-primary" href="{{ url_for('ticket_detail', ticket_id=ticket.id) }}">View</a></td>
+</tr>
+{% else %}
+<tr><td colspan="8" class="text-center py-5 text-muted">No matching tickets found.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div></div>
+{% endblock %}
